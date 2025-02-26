@@ -1,0 +1,140 @@
+<h1>Variables</h1>
+<hr>
+<p>
+    <h3>What is variables? <br>Variable are the containers which holds the data. <br>
+    </h3>
+    <hr>
+
+<h3>Ways of writting variables:</h3>
+<ol><li>Snake case : This is the most commonly used convention in Python. Words are separated by underscores, and all letters are lowercase.<br>
+
+Example:
+
+<pre>
+    <code>
+        my_variable_name = 10 
+        first_name = "Vishwanath"
+    </code>
+</pre>
+    <li>Camel Case: This is less common in Python but still used by some developers. The first word is lowercase, and each subsequent word starts with an uppercase letter.<br>
+    Example:
+    
+<pre>
+    <code>
+    myVariableName = 10 
+    firstName = "Vishwanath"</li>
+<li>
+    </code>
+</pre>
+    Single Underscore Prefix (For Internal Use):Used to indicate that a variable is intended to be private. <br>
+    Example:
+    <pre>
+        <code>
+    _temp_value = 50
+        </code>
+    </pre>
+</li><br>
+
+<li>Double Underscore Prefix (For Name Mangling in Classes):Used to avoid name conflicts in subclasses.<br>
+ Example:   
+    <pre> <code> 
+    class Sample:
+    def __init__(self):
+        self.__hidden_var = 10  # Name-mangled to _Sample__hidden_var
+        </code>
+    </pre>
+    
+
+</li>
+
+<li>Both Leading & Trailing Underscores (For Avoiding Conflicts with Keywords):Helps avoid clashes with built-in names.</li>
+Example:<pre>
+    <code>
+    class_ = "Math"  # Avoids conflict with the `class` keyword
+
+    </code>
+</pre>
+
+
+
+
+<li>Pascal Case: Similar to camel case, but the first word also starts with an uppercase letter. This is usually used for class names rather than variables. <br>
+Example:
+<pre>
+    <code>MyVariableName = 10 
+    FirstName = "Vishwanath"</li> <br></code>
+</pre>
+    <li>Upper Case (Screaming Snake Case):<br>
+Example:
+<pre>
+    <code>MY_VARIABLE_NAME = "Data Analyst" 
+    USER_AGE = 45
+    ID=EP001
+</code>
+</pre>
+
+<li>Global vs Local Variables<br>
+<ol>
+    <li>A global variable is a variable that is declared outside of any function, class, or method and can be accessed and modified from anywhere in the program.<br></li>
+    <li>A local variable, on the other hand, is a variable that is declared within a function or block of code and is only accessible within that function or block.<br>
+    </li>
+</ol>
+<br>
+
+
+
+Example: <br>
+
+
+<pre>
+    <code>
+    variable = 10  # Global variable
+    
+    def function():
+        value = 5  # Local variable
+    
+        global variable  # Declaring global variable
+        variable += value  # Using the global variable
+    
+        print(f"Local variable: {value}")
+        print(f"Global variable: {variable}")
+    
+    function()
+    </code>
+        </pre>
+
+</li>
+
+</ol>
+
+
+<h3>Rules for Naming Variables:</h3>
+<ul>
+    <li>Start with a Letter or Underscore</li>
+    <li>Followed by Letters, Digits, or Underscores</li>
+    <li>Case-Sensitive</li>
+    <li>No Spaces</li>
+    <li>No Reserved Keywords</li>
+</ul>
+
+</p>
+<hr>
+
+
+
+<h4>Learn more</h4>
+<hr>
+<a href="./datatype.html"> Introduction to Python Data Types</a> <br>
+<a href="./Operator.html">Introduction to Python Operators</a> <br>
+<a href="./functions.html">Introduction to Python Function</a> <br>
+<a href="./handling_file.html">File handling </a> <br>
+<a href="./Dictionaries_(dict)_and_Dictionary-Methods.html">Dictionaries_(dict)_and_Dictionary-Methods</a><br>
+<a href="./list_and_lists_operator.html">list_and_lists_operator</a><br>
+<a href="./Iterators_and_Generators.html">Iterators_and_Generators</a>
+<a href="./loops.html">Loops</a><br>
+<a href="./Modules_and_Imports.html">Module and Imports in Python</a><br>
+<a href="./Exception_Handling.html">Exception_Handling</a><br>
+<a href="./List_Comprehensions.html">List comprehensions</a><br>
+<a href="./String_Manipulation_and_Formatting.html">String String_Manipulation_and_Formatting</a><br>
+<a href="./Tuples_and_Tuple_Operations.html">Tuples_and_Tuple_Operations.html</a>
+

@@ -1,0 +1,77 @@
+<h1>Python Dictionaries</h1>
+    
+<h2>What is a Dictionary?</h2>
+<p>A dictionary in Python is an unordered collection of key-value pairs. Keys must be unique and immutable.</p>
+
+<h1>What is a Dictionary in Python?</h1>
+<p>A dictionary stores data in key-value pairs.</p>
+<ul>
+    <li>It is mutable (can be changed).</li>
+    <li>Keys must be unique and immutable (strings, numbers, tuples).</li>
+    <li>Values can be of any type (string, number, list, dictionary, etc.).</li>
+    <li>Dictionaries are created using {} (curly braces).</li>
+</ul>
+</body>
+</html>
+
+<h2>Dictionary Methods</h2>
+<ul>
+    <li><code>dict.keys()</code> - Returns all keys</li>
+    <li><code>dict.values()</code> - Returns all values</li>
+    <li><code>dict.items()</code> - Returns all key-value pairs</li>
+    <li><code>dict.update(new_dict)</code> - Updates dictionary</li>
+    <li><code>dict.clear()</code> - Clears all items</li>
+    <li><code>dict.popitem()</code> - Removes the last inserted key-value pair</li>
+    <li><code>dict.update(new_dict)</code> - Updates dictionary with another dictionary</li>
+    <li><code>dict.copy()</code>-	Returns a shallow copy of the dictionary</li>
+    
+</ul>
+
+<h2>Creating a Dictionary</h2>
+<pre><code>student = {"name": "John", "age": 25, "course": "Python", "marks": 90}
+print(student)</code></pre>
+
+<h2>Accessing Dictionary Values</h2>
+<pre><code>print(student["name"])  # Output: John
+print(student.get("age"))  # Output: 25</code></pre>
+
+<h2>Modifying a Dictionary</h2>
+<pre><code>student["marks"] = 95  # Adding new key-value pair
+student["age"] = 26  # Updating existing key
+print(student)</code></pre>
+
+<h2>Removing Items</h2>
+<pre><code>student.pop("age")  # Removes the key 'age'
+print(student)</code></pre>
+
+
+
+<h2>Looping Through a Dictionary</h2>
+<pre><code>for key, value in student.items():
+print(f"{key}: {value}")</code></pre>
+
+<h2>Nested Dictionaries</h2>
+<pre><code>students = {
+"student1": {"name": "Alice", "age": 22, "course": "Python"},
+"student2": {"name": "Bob", "age": 24, "course": "Java"}
+}
+print(students["student1"]["name"])  # Output: Alice</code></pre>
+
+<h2>Real-World Example: Employee Database</h2>
+<pre><code>employees = {
+101: {"name": "Alice", "age": 30, "department": "HR"},
+102: {"name": "Bob", "age": 25, "department": "IT"},
+103: {"name": "Charlie", "age": 28, "department": "Finance"}
+}
+emp_id = 102
+if emp_id in employees:
+print(f"Employee Name: {employees[emp_id]['name']}")
+else:
+print("Employee not found")</code></pre>
+</body>
+</html>
+
+
+
+<a href="./index.html">Home</a> <br>
+<a href="./contents.html">More link</a>

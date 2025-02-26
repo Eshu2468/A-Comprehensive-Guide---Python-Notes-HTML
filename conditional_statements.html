@@ -1,0 +1,309 @@
+
+
+
+<h1>Python Conditional Statements</h1>
+
+<h2>1️. if Statement</h2>
+<p>The <code>if</code> statement executes a block of code if a condition is true.</p>
+<pre><code>
+age = 20
+if age >= 18:
+print("You are eligible to vote.")
+</code></pre>
+
+<h2>2️. if-else Statement</h2>
+<p>The <code>if-else</code> statement executes one block if true, another if false.</p>
+<pre><code>
+age = 16
+if age >= 18:
+print("You are eligible to vote.")
+else:
+print("You are not eligible to vote.")
+</code></pre>
+
+<h2>3️. if-elif-else Statement</h2>
+<p>The <code>if-elif-else</code> statement checks multiple conditions.</p>
+<pre><code>
+marks = 85
+if marks >= 90:
+print("Grade: A")
+elif marks >= 75:
+print("Grade: B")
+elif marks >= 60:
+print("Grade: C")
+else:
+print("Grade: F")
+</code></pre>
+
+<h2>4️. Nested if Statements</h2>
+<pre><code>
+age = 25
+is_registered = True
+
+if age >= 18:
+if is_registered:
+    print("You can vote.")
+else:
+    print("You need to register first.")
+else:
+print("You are too young to vote.")
+</code></pre>
+
+<h2>5️. Logical Operators</h2>
+<h3>Using and Operator</h3>
+<pre><code>
+age = 20
+has_voter_id = True
+
+if age >= 18 and has_voter_id:
+print("You can vote.")
+</code></pre>
+
+<h3>Using or Operator</h3>
+<pre><code>
+is_raining = False
+has_umbrella = True
+
+if is_raining or has_umbrella:
+print("You are prepared!")
+</code></pre>
+
+<h3>Using not Operator</h3>
+<pre><code>
+is_sunny = False
+
+if not is_sunny:
+print("It is not sunny today.")
+</code></pre>
+
+<h2> 6. Short-Hand if and if-else</h2>
+<pre><code>
+# One-line if
+age = 20
+if age >= 18: print("Eligible to vote.")
+
+# One-line if-else (Ternary Operator)
+age = 16
+print("Eligible to vote.") if age >= 18 else print("Not eligible to vote.")
+</code></pre>
+
+<h2>Using if in a Loop</h2>
+<p>Print even numbers from 1 to 10.</p>
+<pre><code>
+for num in range(1, 11):
+if num % 2 == 0:
+    print(num)
+</code></pre>
+
+<h2>Challenge: Check if a Number is Positive, Negative, or Zero</h2>
+<pre><code>
+num = int(input("Enter a number: "))
+
+if num > 0:
+print("The number is positive.")
+elif num < 0:
+print("The number is negative.")
+else:
+print("The number is zero.")
+</code></pre>
+
+<h3>More Example</h3>
+<h2>1️.if Statement</h2>
+    <p>The <code>if</code> statement executes a block of code if a condition is true.</p>
+    <pre><code>
+age = 20
+if age >= 18:
+    print("You are eligible to vote.")
+    </code></pre>
+
+    <h2>2️. if-else Statement</h2>
+    <pre><code>
+age = 16
+if age >= 18:
+    print("You are eligible to vote.")
+else:
+    print("You are not eligible to vote.")
+    </code></pre>
+
+    <h2>3️. if-elif-else Statement</h2>
+    <pre><code>
+marks = 85
+if marks >= 90:
+    print("Grade: A")
+elif marks >= 75:
+    print("Grade: B")
+elif marks >= 60:
+    print("Grade: C")
+else:
+    print("Grade: F")
+    </code></pre>
+
+    <h2>4️. Nested if Statements</h2>
+    <pre><code>
+age = 25
+is_registered = True
+
+if age >= 18:
+    if is_registered:
+        print("You can vote.")
+    else:
+        print("You need to register first.")
+else:
+    print("You are too young to vote.")
+    </code></pre>
+
+    <h2>5️. Checking Even or Odd Number</h2>
+    <pre><code>
+num = int(input("Enter a number: "))
+
+if num % 2 == 0:
+    print("The number is Even.")
+else:
+    print("The number is Odd.")
+    </code></pre>
+
+    <h2>6️. Finding the Largest Number</h2>
+    <pre><code>
+a, b, c = 10, 25, 15
+
+if a > b and a > c:
+    print("Largest number is:", a)
+elif b > c:
+    print("Largest number is:", b)
+else:
+    print("Largest number is:", c)
+    </code></pre>
+
+    <h2>7️. Leap Year Checker</h2>
+    <pre><code>
+year = int(input("Enter a year: "))
+
+if (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
+    print(year, "is a Leap Year.")
+else:
+    print(year, "is not a Leap Year.")
+    </code></pre>
+
+    <h2>8️. Positive, Negative, or Zero</h2>
+    <pre><code>
+num = float(input("Enter a number: "))
+
+if num > 0:
+    print("The number is positive.")
+elif num < 0:
+    print("The number is negative.")
+else:
+    print("The number is zero.")
+    </code></pre>
+
+    <h2>9️. Checking for Vowels</h2>
+    <pre><code>
+char = input("Enter a character: ").lower()
+
+if char in 'aeiou':
+    print("It is a vowel.")
+else:
+    print("It is a consonant.")
+    </code></pre>
+
+    <h2>10. Checking for Uppercase or Lowercase</h2>
+    <pre><code>
+char = input("Enter a character: ")
+
+if char.isupper():
+    print("It is an uppercase letter.")
+elif char.islower():
+    print("It is a lowercase letter.")
+else:
+    print("It is neither uppercase nor lowercase.")
+    </code></pre>
+
+    <h2>1️1. Checking Age Category</h2>
+    <pre><code>
+age = int(input("Enter your age: "))
+
+if age < 13:
+    print("You are a Child.")
+elif age < 20:
+    print("You are a Teenager.")
+elif age < 60:
+    print("You are an Adult.")
+else:
+    print("You are a Senior Citizen.")
+    </code></pre>
+
+    <h2>1️2. Number is Divisible by Both 5 and 11</h2>
+    <pre><code>
+num = int(input("Enter a number: "))
+
+if num % 5 == 0 and num % 11 == 0:
+    print("The number is divisible by both 5 and 11.")
+else:
+    print("The number is not divisible by both 5 and 11.")
+    </code></pre>
+
+    <h2>1️3. Short-Hand if-else</h2>
+    <pre><code>
+age = 16
+print("Eligible to vote.") if age >= 18 else print("Not eligible to vote.")
+    </code></pre>
+
+    <h2>1️4. Checking if a Triangle is Valid</h2>
+    <pre><code>
+a, b, c = 3, 4, 5
+
+if a + b > c and a + c > b and b + c > a:
+    print("The given sides form a valid triangle.")
+else:
+    print("The given sides do not form a triangle.")
+    </code></pre>
+
+    <h2>1️5.Finding the Smallest Number</h2>
+    <pre><code>
+a, b, c = 10, 5, 15
+
+if a < b and a < c:
+    print("Smallest number is:", a)
+elif b < c:
+    print("Smallest number is:", b)
+else:
+    print("Smallest number is:", c)
+    </code></pre>
+
+    <h2>Challenge: FizzBuzz Program</h2>
+    <pre><code>
+num = int(input("Enter a number: "))
+
+if num % 3 == 0 and num % 5 == 0:
+    print("FizzBuzz")
+elif num % 3 == 0:
+    print("Fizz")
+elif num % 5 == 0:
+    print("Buzz")
+else:
+    print(num)
+    </code></pre>
+
+
+    <h2>Shorts notes</h2>
+<p>
+   
+    <ol>
+        
+            <li>if: Checks a condition and executes code if True.</li>
+            <li>else: Executes alternative code when the if condition is False.</li>
+            <li>if-else: Combines if and else for two possible cases.</li>
+    <li>if-elif-else: Handles multiple conditions.</li>
+    <li>nested if: An if inside another if.</li>
+    <li>Short-hand if and if-else: Write conditions in a single line.</li>
+
+        
+    </ol>
+</p>
+    
+</body>
+</html>
+
+
+<a href="./datatype.html">DataType</a>
+
