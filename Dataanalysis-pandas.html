@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Guide to Data Analysis and Aggregation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .output {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: Consolas, monospace;
+            color: #c7254e;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Comprehensive Guide to Data Analysis and Aggregation</h1>
+
+    <!-- Introduction -->
+    <h2>Introduction</h2>
+    <p>
+        Data analysis and aggregation are essential skills for working with datasets. In this guide, we'll explore key concepts like <strong>descriptive statistics</strong>, <strong>window functions</strong>, <strong>cross-tabulation</strong>, and <strong>advanced aggregation</strong> using the <strong>Pandas</strong> library in Python.
+    </p>
+
+    <!-- Dataset -->
+    <h2>Dataset</h2>
+    <p>
+        We'll use the following dataset about <strong>sales transactions</strong> for our examples:
+    </p>
+    <div class="output">
+        <pre>
+import pandas as pd
+
+# Sample dataset
+data = {
+    'Date': ['2023-10-01', '2023-10-01', '2023-10-02', '2023-10-02', '2023-10-03', '2023-10-03'],
+    'Product': ['A', 'B', 'A', 'B', 'A', 'B'],
+    'Sales': [100, 150, 200, 250, 300, 350],
+    'Quantity': [10, 15, 20, 25, 30, 35],
+    'Region': ['North', 'South', 'North', 'South', 'North', 'South']
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+print(df)
+        </pre>
+    </div>
+    <div class="output">
+        <pre>
+         Date Product  Sales  Quantity Region
+0  2023-10-01       A    100        10  North
+1  2023-10-01       B    150        15  South
+2  2023-10-02       A    200        20  North
+3  2023-10-02       B    250        25  South
+4  2023-10-03       A    300        30  North
+5  2023-10-03       B    350        35  South
+        </pre>
+    </div>
+
+    <!-- Descriptive Statistics -->
+    <h2>1. Descriptive Statistics</h2>
+    <p>
+        Descriptive statistics summarize and describe the main features of a dataset.
+    </p>
+
+    <h3>a. Summary Statistics (<code>describe</code>)</h3>
+    <p>
+        The <code>describe()</code> function provides a summary of key statistics for numerical columns.
+    </p>
+    <div class="output">
+        <pre>
+# Summary statistics
+summary = df.describe()
+print(summary)
+        </pre>
+    </div>
+    <div class="output">
+        <table>
+            <tr>
+                <th></th>
+                <th>Sales</th>
+                <th>Quantity</th>
+            </tr>
+            <tr>
+                <td>count</td>
+                <td>6.000000</td>
+                <td>6.000000</td>
+            </tr>
+            <tr>
+                <td>mean</td>
+                <td>225.000000</td>
+                <td>22.500000</td>
+            </tr>
+            <tr>
+                <td>std</td>
+                <td>98.949747</td>
+                <td>10.606602</td>
+            </tr>
+            <tr>
+                <td>min</td>
+                <td>100.000000</td>
+                <td>10.000000</td>
+            </tr>
+            <tr>
+                <td>25%</td>
+                <td>162.500000</td>
+                <td>16.250000</td>
+            </tr>
+            <tr>
+                <td>50%</td>
+                <td>225.000000</td>
+                <td>22.500000</td>
+            </tr>
+            <tr>
+                <td>75%</td>
+                <td>287.500000</td>
+                <td>28.750000</td>
+            </tr>
+            <tr>
+                <td>max</td>
+                <td>350.000000</td>
+                <td>35.000000</td>
+            </tr>
+        </table>
+    </div>
+
+    <h3>b. Correlation and Covariance (<code>corr</code>, <code>cov</code>)</h3>
+    <p>
+        <strong>Correlation</strong> measures the relationship between two variables, while <strong>covariance</strong> measures how two variables change together.
+    </p>
+    <div class="output">
+        <pre>
+# Correlation matrix
+correlation = df[['Sales', 'Quantity']].corr()
+print("Correlation:\n", correlation)
+
+# Covariance matrix
+covariance = df[['Sales', 'Quantity']].cov()
+print("Covariance:\n", covariance)
+        </pre>
+    </div>
+    <div class="output">
+        <h4>Correlation:</h4>
+        <table>
+            <tr>
+                <th></th>
+                <th>Sales</th>
+                <th>Quantity</th>
+            </tr>
+            <tr>
+                <td>Sales</td>
+                <td>1.000000</td>
+                <td>1.000000</td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>1.000000</td>
+                <td>1.000000</td>
+            </tr>
+        </table>
+
+        <h4>Covariance:</h4>
+        <table>
+            <tr>
+                <th></th>
+                <th>Sales</th>
+                <th>Quantity</th>
+            </tr>
+            <tr>
+                <td>Sales</td>
+                <td>9800.0</td>
+                <td>1050.0</td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>1050.0</td>
+                <td>112.5</td>
+            </tr>
+        </table>
+    </div>
+
+    <h3>c. Counting Unique Values (<code>value_counts</code>)</h3>
+    <p>
+        The <code>value_counts()</code> function counts the occurrences of unique values in a column.
+    </p>
+    <div class="output">
+        <pre>
+# Count unique values in the 'Product' column
+product_counts = df['Product'].value_counts()
+print(product_counts)
+        </pre>
+    </div>
+    <div class="output">
+        <pre>
+A    3
+B    3
+Name: Product, dtype: int64
+        </pre>
+    </div>
+
+    <!-- Window Functions -->
+    <h2>2. Window Functions</h2>
+    <p>
+        Window functions perform calculations over a sliding window of rows.
+    </p>
+
+    <h3>a. Rolling Windows (<code>rolling</code>)</h3>
+    <p>
+        Rolling windows compute statistics over a fixed-size window of rows.
+    </p>
+    <div class="output">
+        <pre>
+# Rolling mean of 'Sales' with a window of 2
+df['Rolling_Sales'] = df['Sales'].rolling(window=2).mean()
+print(df)
+        </pre>
+    </div>
+    <div class="output">
+        <pre>
+         Date Product  Sales  Quantity Region  Rolling_Sales
+0  2023-10-01       A    100        10  North            NaN
+1  2023-10-01       B    150        15  South          125.0
+2  2023-10-02       A    200        20  North          175.0
+3  2023-10-02       B    250        25  South          225.0
+4  2023-10-03       A    300        30  North          275.0
+5  2023-10-03       B    350        35  South          325.0
+        </pre>
+    </div>
+
+    <h3>b. Expanding Windows (<code>expanding</code>)</h3>
+    <p>
+        Expanding windows compute statistics over all rows up to the current row.
+    </p>
+    <div class="output">
+        <pre>
+# Expanding sum of 'Sales'
+df['Expanding_Sales'] = df['Sales'].expanding().sum()
+print(df)
+        </pre>
+    </div>
+    <div class="output">
+        <pre>
+         Date Product  Sales  Quantity Region  Rolling_Sales  Expanding_Sales
+0  2023-10-01       A    100        10  North            NaN            100.0
+1  2023-10-01       B    150        15  South          125.0            250.0
+2  2023-10-02       A    200        20  North          175.0            450.0
+3  2023-10-02       B    250        25  South          225.0            700.0
+4  2023-10-03       A    300        30  North          275.0           1000.0
+5  2023-10-03       B    350        35  South          325.0           1350.0
+        </pre>
+    </div>
+
+    <!-- Cross-Tabulation -->
+    <h2>3. Cross-Tabulation (<code>crosstab</code>)</h2>
+    <p>
+        Cross-tabulation is used to summarize the relationship between two categorical variables.
+    </p>
+    <div class="output">
+        <pre>
+# Cross-tabulation of 'Product' and 'Region'
+cross_tab = pd.crosstab(df['Product'], df['Region'])
+print(cross_tab)
+        </pre>
+    </div>
+    <div class="output">
+        <table>
+            <tr>
+                <th>Region</th>
+                <th>North</th>
+                <th>South</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>3</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>0</td>
+                <td>3</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Advanced Aggregation -->
+    <h2>4. Advanced Aggregation (<code>agg</code>)</h2>
+    <p>
+        The <code>agg()</code> function allows you to apply multiple aggregation functions to columns.
+    </p>
+    <div class="output">
+        <pre>
+# Advanced aggregation
+aggregation = df.groupby('Product').agg({
+    'Sales': ['sum', 'mean', 'max'],
+    'Quantity': ['sum', 'min']
+})
+print(aggregation)
+        </pre>
+    </div>
+    <div class="output">
+        <table>
+            <tr>
+                <th></th>
+                <th colspan="3">Sales</th>
+                <th colspan="2">Quantity</th>
+            </tr>
+            <tr>
+                <th>Product</th>
+                <th>sum</th>
+                <th>mean</th>
+                <th>max</th>
+                <th>sum</th>
+                <th>min</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>600</td>
+                <td>200</td>
+                <td>300</td>
+                <td>60</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>750</td>
+                <td>250</td>
+                <td>350</td>
+                <td>75</td>
+                <td>15</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analysis Techniques</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background-color: #f4f4f4;
+            padding: 5px;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Data Analysis Techniques</h1>
+
+<h2>1. Descriptive Statistics</h2>
+
+<h3>a. Summary Statistics (describe)</h3>
+<p><strong>Definition:</strong> The <code>describe()</code> function provides a summary of key statistics for numerical columns in a dataset.</p>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To quickly understand the distribution of numerical data.</li>
+    <li>To identify trends, outliers, and central tendencies.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>count:</strong> Number of non-null values.</li>
+    <li><strong>mean:</strong> Average value.</li>
+    <li><strong>std:</strong> Standard deviation (measure of spread).</li>
+    <li><strong>min:</strong> Minimum value.</li>
+    <li><strong>25%:</strong> First quartile (25th percentile).</li>
+    <li><strong>50%:</strong> Median (50th percentile).</li>
+    <li><strong>75%:</strong> Third quartile (75th percentile).</li>
+    <li><strong>max:</strong> Maximum value.</li>
+</ul>
+<p><strong>Scenario:</strong> Use <code>describe()</code> when you want a quick overview of your dataset.</p>
+<p><strong>Example:</strong> Analyzing sales data to understand average sales, spread, and outliers.</p>
+
+<h3>b. Correlation and Covariance (corr, cov)</h3>
+<p><strong>Definition:</strong></p>
+<ul>
+    <li><strong>Correlation:</strong> Measures the strength and direction of the relationship between two variables (range: -1 to 1).</li>
+    <li><strong>Covariance:</strong> Measures how two variables change together.</li>
+</ul>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To understand relationships between variables.</li>
+    <li>To identify dependencies or patterns in the data.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>Correlation Coefficient:</strong> A value between -1 and 1.
+        <ul>
+            <li><strong>1:</strong> Perfect positive correlation.</li>
+            <li><strong>-1:</strong> Perfect negative correlation.</li>
+            <li><strong>0:</strong> No correlation.</li>
+        </ul>
+    </li>
+    <li><strong>Covariance:</strong> A value that indicates the direction of the relationship (positive or negative).</li>
+</ul>
+<p><strong>Scenario:</strong></p>
+<ul>
+    <li>Use <code>corr()</code> to check if two variables are related (e.g., sales and advertising spend).</li>
+    <li>Use <code>cov()</code> to understand how two variables move together (e.g., temperature and ice cream sales).</li>
+</ul>
+
+<h3>c. Counting Unique Values (value_counts)</h3>
+<p><strong>Definition:</strong> The <code>value_counts()</code> function counts the occurrences of unique values in a column.</p>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To understand the distribution of categorical data.</li>
+    <li>To identify the most or least frequent categories.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>Unique Values:</strong> Distinct values in a column.</li>
+    <li><strong>Frequency:</strong> Number of times each unique value appears.</li>
+</ul>
+<p><strong>Scenario:</strong> Use <code>value_counts()</code> to analyze categorical data (e.g., counting the number of products sold in each category).</p>
+
+<h2>2. Window Functions</h2>
+
+<h3>a. Rolling Windows (rolling)</h3>
+<p><strong>Definition:</strong> Rolling windows compute statistics over a fixed-size window of rows.</p>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To analyze trends over a specific period.</li>
+    <li>To smooth out short-term fluctuations and highlight long-term trends.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>Window Size:</strong> Number of rows included in the calculation.</li>
+    <li><strong>Rolling Mean:</strong> Average over the window.</li>
+    <li><strong>Rolling Sum:</strong> Sum over the window.</li>
+</ul>
+<p><strong>Scenario:</strong> Use <code>rolling()</code> to calculate moving averages (e.g., 7-day rolling average of sales).</p>
+
+<h3>b. Expanding Windows (expanding)</h3>
+<p><strong>Definition:</strong> Expanding windows compute statistics over all rows up to the current row.</p>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To analyze cumulative trends.</li>
+    <li>To understand how a metric evolves over time.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>Cumulative Sum:</strong> Sum of all values up to the current row.</li>
+    <li><strong>Cumulative Mean:</strong> Average of all values up to the current row.</li>
+</ul>
+<p><strong>Scenario:</strong> Use <code>expanding()</code> to calculate cumulative metrics (e.g., total revenue over time).</p>
+
+<h2>3. Cross-Tabulation (crosstab)</h2>
+<p><strong>Definition:</strong> Cross-tabulation summarizes the relationship between two categorical variables.</p>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To analyze the frequency of interactions between categories.</li>
+    <li>To identify patterns or dependencies between categorical variables.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>Frequency Table:</strong> A table showing the count of interactions between categories.</li>
+</ul>
+<p><strong>Scenario:</strong> Use <code>crosstab()</code> to analyze relationships between categorical variables (e.g., product sales by region).</p>
+
+<h2>4. Advanced Aggregation (agg)</h2>
+<p><strong>Definition:</strong> The <code>agg()</code> function allows you to apply multiple aggregation functions to columns.</p>
+<p><strong>Purpose:</strong></p>
+<ul>
+    <li>To perform complex aggregations in a single step.</li>
+    <li>To summarize data at different levels of granularity.</li>
+</ul>
+<p><strong>Terminology:</strong></p>
+<ul>
+    <li><strong>Aggregation Functions:</strong> Functions like sum, mean, max, min, etc.</li>
+    <li><strong>Grouped Aggregation:</strong> Applying aggregations to groups of data.</li>
+</ul>
+<p><strong>Scenario:</strong> Use <code>agg()</code> to calculate multiple metrics for grouped data (e.g., total sales and average quantity by product).</p>
+
+<h2>Scenarios for Using These Functions</h2>
+
+<h3>1. Descriptive Statistics</h3>
+<p><strong>Scenario:</strong> You have a dataset of customer transactions and want to understand the distribution of purchase amounts.</p>
+<ul>
+    <li>Use <code>describe()</code> to get summary statistics.</li>
+    <li>Use <code>value_counts()</code> to count the number of transactions by product category.</li>
+</ul>
+
+<h3>2. Correlation and Covariance</h3>
+<p><strong>Scenario:</strong> You want to analyze the relationship between advertising spend and sales.</p>
+<ul>
+    <li>Use <code>corr()</code> to check if there’s a correlation.</li>
+    <li>Use <code>cov()</code> to understand how the two variables move together.</li>
+</ul>
+
+<h3>3. Window Functions</h3>
+<p><strong>Scenario:</strong> You want to analyze weekly trends in website traffic.</p>
+<ul>
+    <li>Use <code>rolling()</code> to calculate a 7-day rolling average.</li>
+    <li>Use <code>expanding()</code> to calculate cumulative traffic over time.</li>
+</ul>
+
+<h3>4. Cross-Tabulation</h3>
+<p><strong>Scenario:</strong> You want to analyze the relationship between customer demographics and product preferences.</p>
+<ul>
+    <li>Use <code>crosstab()</code> to create a frequency table of purchases by age group and product category.</li>
+</ul>
+
+<h3>5. Advanced Aggregation</h3>
+<p><strong>Scenario:</strong> You want to summarize sales data by region and product.</p>
+<ul>
+    <li>Use <code>agg()</code> to calculate total sales, average sales, and maximum sales for each region-product combination.</li>
+</ul>
+
+<h2>Real-World Scenarios</h2>
+
+<h3>1. Descriptive Statistics</h3>
+<p><strong>Scenario:</strong> Analyzing Customer Purchase Data</p>
+<p>You have a dataset of customer purchases and want to understand the distribution of purchase amounts.</p>
+
+<h4>Dataset:</h4>
+<pre><code>import pandas as pd
+
+# Sample dataset
+data = {
+    'CustomerID': [1, 2, 3, 4, 5],
+    'PurchaseAmount': [100, 150, 200, 250, 300],
+    'ProductCategory': ['Electronics', 'Clothing', 'Electronics', 'Clothing', 'Electronics']
+}
+
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th>CustomerID</th>
+        <th>PurchaseAmount</th>
+        <th>ProductCategory</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>100</td>
+        <td>Electronics</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>150</td>
+        <td>Clothing</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>200</td>
+        <td>Electronics</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>250</td>
+        <td>Clothing</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>300</td>
+        <td>Electronics</td>
+    </tr>
+</table>
+
+<h4>Step-by-Step Process:</h4>
+<p><strong>Summary Statistics:</strong></p>
+<p>Use <code>describe()</code> to get key statistics for <code>PurchaseAmount</code>.</p>
+<pre><code>summary = df['PurchaseAmount'].describe()
+print(summary)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th>count</th>
+        <th>mean</th>
+        <th>std</th>
+        <th>min</th>
+        <th>25%</th>
+        <th>50%</th>
+        <th>75%</th>
+        <th>max</th>
+    </tr>
+    <tr>
+        <td>5.000000</td>
+        <td>200.000000</td>
+        <td>79.056942</td>
+        <td>100.000000</td>
+        <td>150.000000</td>
+        <td>200.000000</td>
+        <td>250.000000</td>
+        <td>300.000000</td>
+    </tr>
+</table>
+<p><strong>Interpretation:</strong> The average purchase amount is $200, with a standard deviation of $79.06.</p>
+
+<p><strong>Counting Unique Values:</strong></p>
+<p>Use <code>value_counts()</code> to count purchases by product category.</p>
+<pre><code>category_counts = df['ProductCategory'].value_counts()
+print(category_counts)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th>ProductCategory</th>
+        <th>Count</th>
+    </tr>
+    <tr>
+        <td>Electronics</td>
+        <td>3</td>
+    </tr>
+    <tr>
+        <td>Clothing</td>
+        <td>2</td>
+    </tr>
+</table>
+<p><strong>Interpretation:</strong> There are 3 purchases in the Electronics category and 2 in the Clothing category.</p>
+
+<h3>2. Correlation and Covariance</h3>
+<p><strong>Scenario:</strong> Analyzing Advertising Spend vs. Sales</p>
+<p>You want to analyze the relationship between advertising spend and sales.</p>
+
+<h4>Dataset:</h4>
+<pre><code>data = {
+    'AdvertisingSpend': [100, 200, 300, 400, 500],
+    'Sales': [150, 300, 450, 600, 750]
+}
+
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th>AdvertisingSpend</th>
+        <th>Sales</th>
+    </tr>
+    <tr>
+        <td>100</td>
+        <td>150</td>
+    </tr>
+    <tr>
+        <td>200</td>
+        <td>300</td>
+    </tr>
+    <tr>
+        <td>300</td>
+        <td>450</td>
+    </tr>
+    <tr>
+        <td>400</td>
+        <td>600</td>
+    </tr>
+    <tr>
+        <td>500</td>
+        <td>750</td>
+    </tr>
+</table>
+
+<h4>Step-by-Step Process:</h4>
+<p><strong>Correlation:</strong></p>
+<p>Use <code>corr()</code> to calculate the correlation between <code>AdvertisingSpend</code> and <code>Sales</code>.</p>
+<pre><code>correlation = df.corr()
+print(correlation)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th></th>
+        <th>AdvertisingSpend</th>
+        <th>Sales</th>
+    </tr>
+    <tr>
+        <td>AdvertisingSpend</td>
+        <td>1.0</td>
+        <td>1.0</td>
+    </tr>
+    <tr>
+        <td>Sales</td>
+        <td>1.0</td>
+        <td>1.0</td>
+    </tr>
+</table>
+<p><strong>Interpretation:</strong> There’s a perfect positive correlation (1.0) between advertising spend and sales.</p>
+
+<p><strong>Covariance:</strong></p>
+<p>Use <code>cov()</code> to calculate the covariance.</p>
+<pre><code>covariance = df.cov()
+print(covariance)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th></th>
+        <th>AdvertisingSpend</th>
+        <th>Sales</th>
+    </tr>
+    <tr>
+        <td>AdvertisingSpend</td>
+        <td>25000.0</td>
+        <td>37500.0</td>
+    </tr>
+    <tr>
+        <td>Sales</td>
+        <td>37500.0</td>
+        <td>56250.0</td>
+    </tr>
+</table>
+<p><strong>Interpretation:</strong> The positive covariance (37500.0) indicates that advertising spend and sales increase together.</p>
+
+<h3>3. Window Functions</h3>
+<p><strong>Scenario:</strong> Analyzing Weekly Sales Trends</p>
+<p>You want to analyze weekly trends in sales data.</p>
+
+<h4>Dataset:</h4>
+<pre><code>data = {
+    'Date': pd.date_range(start='2023-10-01', periods=7, freq='D'),
+    'Sales': [100, 150, 200, 250, 300, 350, 400]
+}
+
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Sales</th>
+    </tr>
+    <tr>
+        <td>2023-10-01</td>
+        <td>100</td>
+    </tr>
+    <tr>
+        <td>2023-10-02</td>
+        <td>150</td>
+    </tr>
+    <tr>
+        <td>2023-10-03</td>
+        <td>200</td>
+    </tr>
+    <tr>
+        <td>2023-10-04</td>
+        <td>250</td>
+    </tr>
+    <tr>
+        <td>2023-10-05</td>
+
+<tr>
+    <td>2023-10-05</td>
+    <td>300</td>
+</tr>
+<tr>
+    <td>2023-10-06</td>
+    <td>350</td>
+</tr>
+<tr>
+    <td>2023-10-07</td>
+    <td>400</td>
+</tr>
+</table>
+
+<h4>Step-by-Step Process:</h4>
+<p><strong>Rolling Window:</strong></p>
+<p>Use <code>rolling()</code> to calculate a 3-day rolling average of sales.</p>
+<pre><code>df['RollingAvg'] = df['Sales'].rolling(window=3).mean()
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+<tr>
+    <th>Date</th>
+    <th>Sales</th>
+    <th>RollingAvg</th>
+</tr>
+<tr>
+    <td>2023-10-01</td>
+    <td>100</td>
+    <td>NaN</td>
+</tr>
+<tr>
+    <td>2023-10-02</td>
+    <td>150</td>
+    <td>NaN</td>
+</tr>
+<tr>
+    <td>2023-10-03</td>
+    <td>200</td>
+    <td>150.0</td>
+</tr>
+<tr>
+    <td>2023-10-04</td>
+    <td>250</td>
+    <td>200.0</td>
+</tr>
+<tr>
+    <td>2023-10-05</td>
+    <td>300</td>
+    <td>250.0</td>
+</tr>
+<tr>
+    <td>2023-10-06</td>
+    <td>350</td>
+    <td>300.0</td>
+</tr>
+<tr>
+    <td>2023-10-07</td>
+    <td>400</td>
+    <td>350.0</td>
+</tr>
+</table>
+<p><strong>Interpretation:</strong> The rolling average smooths out daily fluctuations and shows the trend.</p>
+
+<p><strong>Expanding Window:</strong></p>
+<p>Use <code>expanding()</code> to calculate cumulative sales.</p>
+<pre><code>df['CumulativeSales'] = df['Sales'].expanding().sum()
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+<tr>
+    <th>Date</th>
+    <th>Sales</th>
+    <th>RollingAvg</th>
+    <th>CumulativeSales</th>
+</tr>
+<tr>
+    <td>2023-10-01</td>
+    <td>100</td>
+    <td>NaN</td>
+    <td>100.0</td>
+</tr>
+<tr>
+    <td>2023-10-02</td>
+    <td>150</td>
+    <td>NaN</td>
+    <td>250.0</td>
+</tr>
+<tr>
+    <td>2023-10-03</td>
+    <td>200</td>
+    <td>150.0</td>
+    <td>450.0</td>
+</tr>
+<tr>
+    <td>2023-10-04</td>
+    <td>250</td>
+    <td>200.0</td>
+    <td>700.0</td>
+</tr>
+<tr>
+    <td>2023-10-05</td>
+    <td>300</td>
+    <td>250.0</td>
+    <td>1000.0</td>
+</tr>
+<tr>
+    <td>2023-10-06</td>
+    <td>350</td>
+    <td>300.0</td>
+    <td>1350.0</td>
+</tr>
+<tr>
+    <td>2023-10-07</td>
+    <td>400</td>
+    <td>350.0</td>
+    <td>1750.0</td>
+</tr>
+</table>
+<p><strong>Interpretation:</strong> Cumulative sales show the total sales over time.</p>
+
+<h3>4. Cross-Tabulation</h3>
+<p><strong>Scenario:</strong> Analyzing Product Sales by Region</p>
+<p>You want to analyze the relationship between product categories and regions.</p>
+
+<h4>Dataset:</h4>
+<pre><code>data = {
+'ProductCategory': ['Electronics', 'Clothing', 'Electronics', 'Clothing', 'Electronics'],
+'Region': ['North', 'South', 'North', 'South', 'North']
+}
+
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+<tr>
+    <th>ProductCategory</th>
+    <th>Region</th>
+</tr>
+<tr>
+    <td>Electronics</td>
+    <td>North</td>
+</tr>
+<tr>
+    <td>Clothing</td>
+    <td>South</td>
+</tr>
+<tr>
+    <td>Electronics</td>
+    <td>North</td>
+</tr>
+<tr>
+    <td>Clothing</td>
+    <td>South</td>
+</tr>
+<tr>
+    <td>Electronics</td>
+    <td>North</td>
+</tr>
+</table>
+
+<h4>Step-by-Step Process:</h4>
+<p><strong>Cross-Tabulation:</strong></p>
+<p>Use <code>crosstab()</code> to create a frequency table of product categories by region.</p>
+<pre><code>cross_tab = pd.crosstab(df['ProductCategory'], df['Region'])
+print(cross_tab)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+<tr>
+    <th>Region</th>
+    <th>North</th>
+    <th>South</th>
+</tr>
+<tr>
+    <td>ProductCategory</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td>Clothing</td>
+    <td>0</td>
+    <td>2</td>
+</tr>
+<tr>
+    <td>Electronics</td>
+    <td>3</td>
+    <td>0</td>
+</tr>
+</table>
+<p><strong>Interpretation:</strong> Electronics are sold only in the North, while Clothing is sold only in the South.</p>
+
+<h3>5. Advanced Aggregation</h3>
+<p><strong>Scenario:</strong> Summarizing Sales Data by Region and Product</p>
+<p>You want to summarize sales data by region and product category.</p>
+
+<h4>Dataset:</h4>
+<pre><code>data = {
+'Region': ['North', 'South', 'North', 'South', 'North'],
+'ProductCategory': ['Electronics', 'Clothing', 'Electronics', 'Clothing', 'Electronics'],
+'Sales': [100, 150, 200, 250, 300]
+}
+
+df = pd.DataFrame(data)
+print(df)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+<tr>
+    <th>Region</th>
+    <th>ProductCategory</th>
+    <th>Sales</th>
+</tr>
+<tr>
+    <td>North</td>
+    <td>Electronics</td>
+    <td>100</td>
+</tr>
+<tr>
+    <td>South</td>
+    <td>Clothing</td>
+    <td>150</td>
+</tr>
+<tr>
+    <td>North</td>
+    <td>Electronics</td>
+    <td>200</td>
+</tr>
+<tr>
+    <td>South</td>
+    <td>Clothing</td>
+    <td>250</td>
+</tr>
+<tr>
+    <td>North</td>
+    <td>Electronics</td>
+    <td>300</td>
+</tr>
+</table>
+
+<h4>Step-by-Step Process:</h4>
+<p><strong>Advanced Aggregation:</strong></p>
+<p>Use <code>agg()</code> to calculate total sales, average sales, and maximum sales by region and product category.</p>
+<pre><code>aggregation = df.groupby(['Region', 'ProductCategory']).agg({
+'Sales': ['sum', 'mean', 'max']
+})
+print(aggregation)
+</code></pre>
+
+<h4>Output:</h4>
+<table>
+<tr>
+    <th></th>
+    <th>Sales</th>
+</tr>
+<tr>
+    <th>Region</th>
+    <th>ProductCategory</th>
+    <th>sum</th>
+    <th>mean</th>
+    <th>max</th>
+</tr>
+<tr>
+    <td>North</td>
+    <td>Electronics</td>
+    <td>600</td>
+    <td>200</td>
+    <td>300</td>
+</tr>
+<tr>
+    <td>South</td>
+    <td>Clothing</td>
+    <td>400</td>
+    <td>200</td>
+    <td>250</td>
+</tr>
+</table>
+<p><strong>Interpretation:</strong> In the North, Electronics sales total $600, with an average of $200 and a maximum of $300. In the South, Clothing sales total $400, with an average of $200 and a maximum of $250.</p>
+
+</body>
+</html>
